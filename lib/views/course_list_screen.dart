@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../presenters/course_presenter.dart';
 
+import '../widgets/add_fab.dart';
+
 class CourseListScreen extends StatefulWidget {
   const CourseListScreen({super.key});
 
@@ -74,26 +76,21 @@ class _CourseListScreenState extends State<CourseListScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Courses')),
-      body: 
-        _isLoading
+      body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
-            itemCount: courses.length,
-            itemBuilder: (context, index) {
-              final course = courses[index];
-              return ListTile(
-                title: Text(course.name),
-                subtitle: 
-                    course.description != null
+              itemCount: courses.length,
+              itemBuilder: (context, index) {
+                final course = courses[index];
+                return ListTile(
+                  title: Text(course.name),
+                  subtitle: course.description != null
                       ? Text(course.description!)
                       : null,
-              );
-            },
-          ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showAddCourseDialog,
-        child: const Icon(Icons.add),
-      ),
+                );
+              },
+            ),
+      floatingActionButton: AddFAB(onPressed: _showAddCourseDialog),
     );
   }
 }
